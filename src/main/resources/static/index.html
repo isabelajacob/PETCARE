@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <title>PetCare</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    h2 {
+      color: #555;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
+    }
+
+    .secao {
+      background-color: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 14px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .mensagem {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 14px;
+      display: none;
+    }
+
+    .sucesso {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .erro {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    table th {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px;
+      text-align: left;
+    }
+
+    table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    table tr:hover {
+      background-color: #f5f5f5;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Sistema PetCare 🐾</h1>
+
+<!-- CADASTRAR TUTOR -->
+<div class="secao">
+  <h2>Cadastrar Tutor</h2>
+  <label>Nome:</label>
+  <input type="text" id="tutorNome" placeholder="Ex: João Silva"/>
+  <label>Email:</label>
+  <input type="email" id="tutorEmail" placeholder="Ex: joao@email.com"/>
+  <label>Telefone:</label>
+  <input type="text" id="tutorTelefone" placeholder="Ex: 11999999999"/>
+  <button onclick="cadastrarTutor()">Cadastrar</button>
+  <div class="mensagem" id="msgTutor"></div>
+</div>
+
+<!-- CADASTRAR VETERINÁRIO -->
+<div class="secao">
+  <h2>Cadastrar Veterinário</h2>
+  <label>Nome:</label>
+  <input type="text" id="vetNome" placeholder="Ex: Dra. Ana"/>
+  <label>Especialidade:</label>
+  <select id="vetEspecialidade">
+    <option value="">Selecione...</option>
+    <option value="cão">Cão</option>
+    <option value="gato">Gato</option>
+    <option value="ave">Ave</option>
+    <option value="roedor">Roedor</option>
+  </select>
+  <button onclick="cadastrarVet()">Cadastrar</button>
+  <div class="mensagem" id="msgVet"></div>
+</div>
+
+<!-- CADASTRAR ANIMAL -->
+<div class="secao">
+  <h2>Cadastrar Animal</h2>
+  <label>ID do Tutor:</label>
+  <input type="number" id="animalTutorId" placeholder="Ex: 1"/>
+  <label>Nome do Animal:</label>
+  <input type="text" id="animalNome" placeholder="Ex: Rex"/>
+  <label>Espécie:</label>
+  <select id="animalEspecie">
+    <option value="">Selecione...</option>
+    <option value="cão">Cão</option>
+    <option value="gato">Gato</option>
+    <option value="ave">Ave</option>
+    <option value="roedor">Roedor</option>
+  </select>
+  <label>Raça:</label>
+  <input type="text" id="animalRaca" placeholder="Ex: Labrador"/>
+  <label>Idade:</label>
+  <input type="number" id="animalIdade" placeholder="Ex: 3"/>
+  <button onclick="cadastrarAnimal()">Cadastrar</button>
+  <div class="mensagem" id="msgAnimal"></div>
+</div>
+
+<!-- AGENDAR CONSULTA -->
+<div class="secao">
+  <h2>Agendar Consulta</h2>
+  <label>ID do Animal:</label>
+  <input type="number" id="consAnimalId" placeholder="Ex: 1"/>
+  <label>ID do Veterinário:</label>
+  <input type="number" id="consVetId" placeholder="Ex: 1"/>
+  <label>Data e Hora:</label>
+  <input type="datetime-local" id="consDataHora"/>
+  <label>Motivo:</label>
+  <input type="text" id="consMotivo" placeholder="Ex: Consulta de rotina"/>
+  <button onclick="agendarConsulta()">Agendar</button>
+  <div class="mensagem" id="msgConsulta"></div>
+</div>
+
+<!-- REGISTRAR PRONTUÁRIO -->
+<div class="secao">
+  <h2>Registrar Prontuário</h2>
+  <label>ID da Consulta:</label>
+  <input type="number" id="pronConsultaId" placeholder="Ex: 1"/>
+  <label>Diagnóstico:</label>
+  <input type="text" id="pronDiagnostico" placeholder="Ex: Infecção bacteriana leve"/>
+  <label>Tratamento:</label>
+  <input type="text" id="pronTratamento" placeholder="Ex: Antibiótico por 7 dias"/>
+  <button onclick="registrarProntuario()">Registrar Prontuário</button>
+  <div class="mensagem" id="msgProntuario"></div>
+</div>
+
+<!-- HISTÓRICO DE PRONTUÁRIOS -->
+<div class="secao">
+  <h2>Histórico de Prontuários por Animal</h2>
+  <label>ID do Animal:</label>
+  <input type="number" id="pronAnimalId" placeholder="Ex: 1"/>
+  <button onclick="buscarProntuarios()">Buscar Histórico</button>
+  <div id="tabelaProntuarios"></div>
+</div>
+
+<!-- REGISTRAR VACINA -->
+<div class="secao">
+  <h2>Registrar Vacina</h2>
+  <label>ID do Animal:</label>
+  <input type="number" id="vacAnimalId" placeholder="Ex: 1"/>
+  <label>Nome da Vacina:</label>
+  <input type="text" id="vacNome" placeholder="Ex: Antirrábica"/>
+  <label>Data de Aplicação:</label>
+  <input type="date" id="vacDataAplicacao"/>
+  <label>Próxima Dose (opcional):</label>
+  <input type="date" id="vacProximaDose"/>
+  <button onclick="registrarVacina()">Registrar Vacina</button>
+  <div class="mensagem" id="msgVacina"></div>
+</div>
+
+<!-- HISTÓRICO DE VACINAS -->
+<div class="secao">
+  <h2>Vacinas por Animal</h2>
+  <label>ID do Animal:</label>
+  <input type="number" id="vacAnimalIdBusca" placeholder="Ex: 1"/>
+  <button onclick="buscarVacinas()">Buscar Vacinas</button>
+  <div id="tabelaVacinas"></div>
+</div>
+
+<!-- LISTAR ANIMAIS -->
+<div class="secao">
+  <h2>Listar Animais Cadastrados</h2>
+  <button onclick="listarAnimais()">Carregar Animais</button>
+  <div id="tabelaAnimais"></div>
+</div>
+
+<!-- LISTAR TUTORES -->
+<div class="secao">
+  <h2>Listar Tutores Cadastrados</h2>
+  <button onclick="listarTutores()">Carregar Tutores</button>
+  <div id="tabelaTutores"></div>
+</div>
+
+<script>
+  const API = 'http://localhost:8080';
+
+  function mostrarMensagem(id, texto, sucesso) {
+    const el = document.getElementById(id);
+    el.textContent = texto;
+    el.className = 'mensagem ' + (sucesso ? 'sucesso' : 'erro');
+    el.style.display = 'block';
+  }
+
+  async function cadastrarTutor() {
+    const nome = document.getElementById('tutorNome').value;
+    const email = document.getElementById('tutorEmail').value;
+    const telefone = document.getElementById('tutorTelefone').value;
+
+    if (!nome || !email) {
+      mostrarMensagem('msgTutor', 'Preencha nome e email!', false);
+      return;
+    }
+
+    try {
+      const resposta = await fetch(API + '/tutores', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, email, telefone })
+      });
+      const dados = await resposta.json();
+      if (resposta.ok) {
+        mostrarMensagem('msgTutor', 'Tutor cadastrado com sucesso! ID: ' + dados.id, true);
+      } else {
+        mostrarMensagem('msgTutor', 'Erro: ' + dados, false);
+      }
+    } catch (e) {
+      mostrarMensagem('msgTutor', 'Erro ao conectar com a API!', false);
+    }
+  }
+
+  async function cadastrarVet() {
+    const nome = document.getElementById('vetNome').value;
+    const especialidade = document.getElementById('vetEspecialidade').value;
+
+    if (!nome || !especialidade) {
+      mostrarMensagem('msgVet', 'Preencha todos os campos!', false);
+      return;
+    }
+
+    try {
+      const resposta = await fetch(API + '/veterinarios', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, especialidade })
+      });
+      const dados = await resposta.json();
+      if (resposta.ok) {
+        mostrarMensagem('msgVet', 'Veterinário cadastrado com sucesso! ID: ' + dados.id, true);
+      } else {
+        mostrarMensagem('msgVet', 'Erro: ' + dados, false);
+      }
+    } catch (e) {
+      mostrarMensagem('msgVet', 'Erro ao conectar com a API!', false);
+    }
+  }
+
+  async function cadastrarAnimal() {
+    const tutorId = document.getElementById('animalTutorId').value;
+    const nome = document.getElementById('animalNome').value;
+    const especie = document.getElementById('animalEspecie').value;
+    const raca = document.getElementById('animalRaca').value;
+    const idade = document.getElementById('animalIdade').value;
+
+    if (!tutorId || !nome || !especie) {
+      mostrarMensagem('msgAnimal', 'Preencha os campos obrigatórios!', false);
+      return;
+    }
+
+    try {
+      const resposta = await fetch(API + '/animais/tutor/' + tutorId, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, especie, raca, idade: parseInt(idade) })
+      });
+      const dados = await resposta.json();
+      if (resposta.ok) {
+        mostrarMensagem('msgAnimal', 'Animal cadastrado com sucesso! ID: ' + dados.id, true);
+      } else {
+        mostrarMensagem('msgAnimal', 'Erro: ' + dados, false);
+      }
+    } catch (e) {
+      mostrarMensagem('msgAnimal', 'Erro ao conectar com a API!', false);
+    }
+  }
+
+  async function agendarConsulta() {
+    const animalId = document.getElementById('consAnimalId').value;
+    const vetId = document.getElementById('consVetId').value;
+    const dataHora = document.getElementById('consDataHora').value;
+    const motivo = document.getElementById('consMotivo').value;
+
+    if (!animalId || !vetId || !dataHora) {
+      mostrarMensagem('msgConsulta', 'Preencha todos os campos!', false);
+      return;
+    }
+
+    try {
+      const resposta = await fetch(API + '/consultas', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          animalId: String(animalId),
+          vetId: String(vetId),
+          dataHora: dataHora,
+          motivo: motivo
+        })
+      });
+      const texto = await resposta.text();
+      if (resposta.ok) {
+        mostrarMensagem('msgConsulta', 'Consulta agendada com sucesso!', true);
+      } else {
+        mostrarMensagem('msgConsulta', 'Erro: ' + texto, false);
+      }
+    } catch (e) {
+      mostrarMensagem('msgConsulta', 'Erro ao conectar com a API!', false);
+    }
+  }
+
+  async function registrarProntuario() {
+    const consultaId = document.getElementById('pronConsultaId').value;
+    const diagnostico = document.getElementById('pronDiagnostico').value;
+    const tratamento = document.getElementById('pronTratamento').value;
+
+    if (!consultaId || !diagnostico) {
+      mostrarMensagem('msgProntuario', 'ID da consulta e diagnóstico são obrigatórios!', false);
+      return;
+    }
+
+    try {
+      const resposta = await fetch(API + '/prontuarios', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ consultaId: String(consultaId), diagnostico, tratamento })
+      });
+      const texto = await resposta.text();
+      if (resposta.ok) {
+        mostrarMensagem('msgProntuario', 'Prontuário registrado com sucesso!', true);
+      } else {
+        mostrarMensagem('msgProntuario', 'Erro: ' + texto, false);
+      }
+    } catch (e) {
+      mostrarMensagem('msgProntuario', 'Erro ao conectar com a API!', false);
+    }
+  }
+
+  async function buscarProntuarios() {
+    const animalId = document.getElementById('pronAnimalId').value;
+
+    if (!animalId) {
+      document.getElementById('tabelaProntuarios').innerHTML = '<p style="color:red">Informe o ID do animal.</p>';
+      return;
+    }
+
+    try {
+      const resposta = await fetch(API + '/prontuarios/animal/' + animalId);
+      const dados = await resposta.json();
+
+      if (dados.length === 0) {
+        document.getElementById('tabelaProntuarios').innerHTML = '<p>Nenhum prontuário encontrado para este animal.</p>';
+        return;
+      }
+
+      let html = '<table><tr><th>ID</th><th>Data</th><th>Diagnóstico</th><th>Tratamento</th><th>Consulta ID</th></tr>';
+      dados.forEach(p => {
+        html += `<tr>
+          <td>${p.id}</td>
+          <td>${p.data || '-'}</td>
+          <td>${p.diagnostico}</td>
+          <td>${p.tratamento || '-'}</td>
+          <td>${p.consulta ? p.consulta.id : '-'}</td>
+        </tr>`;
+      });
+      html += '</table>';
+      document.getElementById('tabelaProntuarios').innerHTML = html;
+    } catch (e) {
+      document.getElementById('tabelaProntuarios').innerHTML = '<p>Erro ao carregar prontuários.</p>';
+    }
+  }
+
+  async function registrarVacina() {
+    const animalId = document.getElementById('vacAnimalId').value;
+    const nome = document.getElementById('vacNome').value;
+    const dataAplicacao = document.getElementById('vacDataAplicacao').value;
+    const proximaDose = document.getElementById('vacProximaDose').value;
+
+    if (!animalId || !nome || !dataAplicacao) {
+      mostrarMensagem('msgVacina', 'ID do animal, nome e data de aplicação são obrigatórios!', false);
+      return;
+    }
+
+    try {
+      const body = { nome, dataAplicacao };
+      if (proximaDose) body.proximaDose = proximaDose;
+
+      const resposta = await fetch(API + '/vacinas/animal/' + animalId, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      const texto = await resposta.text();
+      if (resposta.ok) {
+        mostrarMensagem('msgVacina', 'Vacina registrada com sucesso!', true);
+      } else {
+        mostrarMensagem('msgVacina', 'Erro: ' + texto, false);
+      }
+    } catch (e) {
+      mostrarMensagem('msgVacina', 'Erro ao conectar com a API!', false);
+    }
+  }
+
+  async function buscarVacinas() {
+    const animalId = document.getElementById('vacAnimalIdBusca').value;
+
+    if (!animalId) {
+      document.getElementById('tabelaVacinas').innerHTML = '<p style="color:red">Informe o ID do animal.</p>';
+      return;
+    }
+
+    try {
+      const resposta = await fetch(API + '/vacinas/animal/' + animalId);
+      const dados = await resposta.json();
+
+      if (dados.length === 0) {
+        document.getElementById('tabelaVacinas').innerHTML = '<p>Nenhuma vacina encontrada para este animal.</p>';
+        return;
+      }
+
+      let html = '<table><tr><th>ID</th><th>Nome</th><th>Data Aplicação</th><th>Próxima Dose</th></tr>';
+      dados.forEach(v => {
+        html += `<tr>
+          <td>${v.id}</td>
+          <td>${v.nome}</td>
+          <td>${v.dataAplicacao || '-'}</td>
+          <td>${v.proximaDose || '-'}</td>
+        </tr>`;
+      });
+      html += '</table>';
+      document.getElementById('tabelaVacinas').innerHTML = html;
+    } catch (e) {
+      document.getElementById('tabelaVacinas').innerHTML = '<p>Erro ao carregar vacinas.</p>';
+    }
+  }
+
+  async function listarAnimais() {
+    try {
+      const resposta = await fetch(API + '/animais');
+      const dados = await resposta.json();
+
+      if (dados.length === 0) {
+        document.getElementById('tabelaAnimais').innerHTML = '<p>Nenhum animal cadastrado.</p>';
+        return;
+      }
+
+      let html = '<table><tr><th>ID</th><th>Nome</th><th>Espécie</th><th>Raça</th><th>Idade</th><th>Tutor</th></tr>';
+      dados.forEach(a => {
+        html += `<tr>
+          <td>${a.id}</td>
+          <td>${a.nome}</td>
+          <td>${a.especie}</td>
+          <td>${a.raca || '-'}</td>
+          <td>${a.idade} anos</td>
+          <td>${a.tutor ? a.tutor.nome : '-'}</td>
+        </tr>`;
+      });
+      html += '</table>';
+      document.getElementById('tabelaAnimais').innerHTML = html;
+    } catch (e) {
+      document.getElementById('tabelaAnimais').innerHTML = '<p>Erro ao carregar animais.</p>';
+    }
+  }
+
+  async function listarTutores() {
+    try {
+      const resposta = await fetch(API + '/tutores');
+      const dados = await resposta.json();
+
+      if (dados.length === 0) {
+        document.getElementById('tabelaTutores').innerHTML = '<p>Nenhum tutor cadastrado.</p>';
+        return;
+      }
+
+      let html = '<table><tr><th>ID</th><th>Nome</th><th>Email</th><th>Telefone</th></tr>';
+      dados.forEach(t => {
+        html += `<tr>
+          <td>${t.id}</td>
+          <td>${t.nome}</td>
+          <td>${t.email}</td>
+          <td>${t.telefone || '-'}</td>
+        </tr>`;
+      });
+      html += '</table>';
+      document.getElementById('tabelaTutores').innerHTML = html;
+    } catch (e) {
+      document.getElementById('tabelaTutores').innerHTML = '<p>Erro ao carregar tutores.</p>';
+    }
+  }
+</script>
+
+</body>
+</html>
