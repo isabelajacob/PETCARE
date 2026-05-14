@@ -223,23 +223,7 @@ Funcionalidades da interface:
 
 ---
 
-# Como Executar
 
-```bash
-# Clonar o repositório
-git clone <url-do-repositorio>
-
-# Entrar na pasta do projeto
-cd petcare
-
-# Rodar com Maven
-./mvnw spring-boot:run
-```
-
-A aplicação estará disponível em `http://localhost:8080`.
-
----
-
-# Autor
+#Isabela de Oliveira Jacob e Ana Luiza Araujo
 
 Projeto desenvolvido para a AC2 da disciplina de Desenvolvimento Web Back-End – ADS.
