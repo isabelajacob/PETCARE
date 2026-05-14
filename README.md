@@ -222,8 +222,10 @@ Funcionalidades da interface:
 - Listagem de animais e tutores
 
 ---
+# CAPTURAS DE TELAS
+https://github.com/isabelajacob/PETCARE/tree/main/IMGS%20DO%20PROJETO
 
-
+---
 #Isabela de Oliveira Jacob e Ana Luiza Araujo
 
 Projeto desenvolvido para a AC2 da disciplina de Desenvolvimento Web Back-End – ADS.
